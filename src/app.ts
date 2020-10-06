@@ -4,7 +4,7 @@ import apiRouter from "./routes/bands"
 
 const app = express();
 
-app.use(cors);
+app.use(cors());
 app.get("/", (req, res, next) => {
   res.send("hello");
 });

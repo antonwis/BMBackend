@@ -13,7 +13,7 @@ const getBands = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await pool.connect()
         .then(client =>{
-            client.query("SELECT * FROM bands WHERE name = 'Sentenced'")
+            client.query("SELECT * FROM bands WHERE country = 'Germany' AND name LIKE 'Sentenc%'")
             .then(result =>{
                 client.release();
                 console.log("client released");
@@ -52,12 +52,13 @@ const getBandsByCountry = async (req: Request, res: Response, next: NextFunction
     }
 }
 
-// @desc    Get bands by name
-// @route   GET /api/bands/:name
-const getBandsByName = async (req: Request, res: Response, next: NextFunction) => {
+// @desc    Get bands by country and genre
+// @route   GET /api/bands/country/:country/genre/:genre
+const getBandsByCountryAndGenre = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const name = req.params.name;
-        const kys = `SELECT * FROM bands WHERE name = '${name}'`;
+        const country = req.params.country;
+        const genre = req.params.genre;
+        const kys = `SELECT * FROM bands WHERE country = '${country}' AND genre LIKE '${genre}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -76,12 +77,86 @@ const getBandsByName = async (req: Request, res: Response, next: NextFunction) =
     }
 }
 
-// @desc    Get bands by genre
+// @desc    Get bands by country and name
+// @route   GET /api/bands/country/:country/:name
+const getBandsByCountryAndName = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const country = req.params.country;
+        const name = req.params.name;
+        const kys = `SELECT * FROM bands WHERE country = '${country}' AND name LIKE '${name}%'`;
+        await pool.connect()
+        .then(client =>{
+            client.query(kys)
+            .then(result =>{
+                client.release();
+                console.log("client released");
+                res.send(result.rows);
+            })
+            .catch(e => {
+                client.release();
+                console.log(e.stack);
+            })
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// @desc    Get bands by name
+// @route   GET /api/bands/:name
+const getBandsByName = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const name = req.params.name;
+        const kys = `SELECT * FROM bands WHERE name LIKE '${name}%'`;
+        await pool.connect()
+        .then(client =>{
+            client.query(kys)
+            .then(result =>{
+                client.release();
+                console.log("client released");
+                res.send(result.rows);
+            })
+            .catch(e => {
+                client.release();
+                console.log(e.stack);
+            })
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// @desc    Get bands by genre and name
+// @route   GET /api/bands/:genre/:name
+const getBandsByGenreAndName = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const genre = req.params.genre;
+        const name = req.params.name;
+        const kys = `SELECT * FROM bands WHERE genre LIKE '${genre}%' AND name LIKE '${name}%'`;
+        await pool.connect()
+        .then(client =>{
+            client.query(kys)
+            .then(result =>{
+                client.release();
+                console.log("client released");
+                res.send(result.rows);
+            })
+            .catch(e => {
+                client.release();
+                console.log(e.stack);
+            })
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// @desc    Get bands by genre (can be partial genre e.g. 'Melodic' returns 'Melodic Black' and 'Melodic Death' etc.)
 // @route   GET /api/bands/genre/:genre
 const getBandsByGenre = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const genre = req.params.genre;
-        const kys = `SELECT * FROM bands WHERE genre = '${genre}'`;
+        const kys = `SELECT * FROM bands WHERE genre LIKE '${genre}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -123,4 +198,4 @@ const getBandsByStatus = async (req: Request, res: Response, next: NextFunction)
         console.log(err);
     }
 }
-export default { getBands, getBandsByCountry, getBandsByName, getBandsByGenre, getBandsByStatus, testiKys};
+export default { getBands, getBandsByCountry, getBandsByCountryAndGenre, getBandsByCountryAndName, getBandsByName, getBandsByGenreAndName, getBandsByGenre, getBandsByStatus, testiKys};
