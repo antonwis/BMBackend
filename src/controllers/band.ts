@@ -8,7 +8,7 @@ import pool from '../db/index'
 const getPreviewBands = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const country = req.params.country;
-        const kys = `SELECT * FROM bands WHERE country = '${country}' AND genre LIKE 'Black%'`;
+        const kys = `SELECT * FROM bands WHERE country = '${country}' AND genre LIKE '%Black%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -27,7 +27,7 @@ const getPreviewBands = async (req: Request, res: Response, next: NextFunction) 
     }
 }
 
-// @desc    Get bands (test)
+// @desc    Test query for testing (╯°□°）╯︵ ┻━┻)
 // @route   GET /api/bands
 const getBands = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -53,8 +53,7 @@ const getBands = async (req: Request, res: Response, next: NextFunction) => {
 const getBandsByCountry = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let country = req.params.country;
-        if(country === "Korea") country = "South Korea";
-        const kys = `SELECT * FROM bands WHERE country LIKE '${country}%'`;
+        const kys = `SELECT * FROM bands WHERE country LIKE '%${country}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -79,7 +78,7 @@ const getBandsByCountryAndGenre = async (req: Request, res: Response, next: Next
     try {
         const country = req.params.country;
         const genre = req.params.genre;
-        const kys = `SELECT * FROM bands WHERE country = '${country}' AND genre LIKE '${genre}%'`;
+        const kys = `SELECT * FROM bands WHERE country = '${country}' AND genre LIKE '%${genre}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -104,7 +103,7 @@ const getBandsByCountryAndName = async (req: Request, res: Response, next: NextF
     try {
         const country = req.params.country;
         const name = req.params.name;
-        const kys = `SELECT * FROM bands WHERE country = '${country}' AND name LIKE '${name}%'`;
+        const kys = `SELECT * FROM bands WHERE country = '${country}' AND name LIKE '%${name}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -129,7 +128,7 @@ const getBandsByCountryAndStatus = async (req: Request, res: Response, next: Nex
     try {
         const country = req.params.country;
         const status = req.params.status;
-        const kys = `SELECT * FROM bands WHERE country = '${country}' AND status LIKE '${status}%'`;
+        const kys = `SELECT * FROM bands WHERE country = '${country}' AND status LIKE '%${status}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -153,7 +152,7 @@ const getBandsByCountryAndStatus = async (req: Request, res: Response, next: Nex
 const getBandsByName = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const name = req.params.name;
-        const kys = `SELECT * FROM bands WHERE name LIKE '${name}%'`;
+        const kys = `SELECT * FROM bands WHERE name LIKE '%${name}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -178,7 +177,7 @@ const getBandsByNameAndStatus = async (req: Request, res: Response, next: NextFu
     try {
         const name = req.params.name;
         const status = req.params.status;
-        const kys = `SELECT * FROM bands WHERE name LIKE '${name}%' AND status LIKE '${status}%'`;
+        const kys = `SELECT * FROM bands WHERE name LIKE '%${name}%' AND status LIKE '%${status}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -203,7 +202,7 @@ const getBandsByGenreAndName = async (req: Request, res: Response, next: NextFun
     try {
         const genre = req.params.genre;
         const name = req.params.name;
-        const kys = `SELECT * FROM bands WHERE genre LIKE '${genre}%' AND name LIKE '${name}%'`;
+        const kys = `SELECT * FROM bands WHERE genre LIKE '%${genre}%' AND name LIKE '%${name}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -228,7 +227,7 @@ const getBandsByGenreAndStatus = async (req: Request, res: Response, next: NextF
     try {
         const genre = req.params.genre;
         const status = req.params.status;
-        const kys = `SELECT * FROM bands WHERE genre LIKE '${genre}%' AND status LIKE '${status}%'`;
+        const kys = `SELECT * FROM bands WHERE genre LIKE '%${genre}%' AND status LIKE '%${status}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -252,7 +251,7 @@ const getBandsByGenreAndStatus = async (req: Request, res: Response, next: NextF
 const getBandsByGenre = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const genre = req.params.genre;
-        const kys = `SELECT * FROM bands WHERE genre LIKE '${genre}%'`;
+        const kys = `SELECT * FROM bands WHERE genre LIKE '%${genre}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -276,7 +275,7 @@ const getBandsByGenre = async (req: Request, res: Response, next: NextFunction) 
 const getBandsByStatus = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const status = req.params.status;
-        const kys = `SELECT * FROM bands WHERE status LIKE '${status}%'`;
+        const kys = `SELECT * FROM bands WHERE status LIKE '%${status}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
