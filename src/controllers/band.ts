@@ -1,6 +1,32 @@
 import { Request, Response, NextFunction } from 'express';
 import pool from '../db/index'
 
+
+// @desc    Get a preview list of Black Metal bands by country
+// *** THIS IS FOR DEMO PURPOSES ONLY ***
+// @route   GET /api/bands/country/:country/genre/:genre
+const getPreviewBands = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const country = req.params.country;
+        const kys = `SELECT * FROM bands WHERE country = '${country}' AND genre LIKE 'Black%'`;
+        await pool.connect()
+        .then(client =>{
+            client.query(kys)
+            .then(result =>{
+                client.release();
+                console.log("client released");
+                res.send(result.rows);
+            })
+            .catch(e => {
+                client.release();
+                console.log(e.stack);
+            })
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 // @desc    Get bands (test)
 // @route   GET /api/bands
 const getBands = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,8 +52,9 @@ const getBands = async (req: Request, res: Response, next: NextFunction) => {
 // @route   GET /api/bands/country/:country
 const getBandsByCountry = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const country = req.params.country;
-        const kys = `SELECT * FROM bands WHERE country = '${country}'`;
+        let country = req.params.country;
+        if(country === "Korea") country = "South Korea";
+        const kys = `SELECT * FROM bands WHERE country LIKE '${country}%'`;
         await pool.connect()
         .then(client =>{
             client.query(kys)
@@ -279,4 +306,5 @@ export default {
     getBandsByGenreAndStatus,
     getBandsByGenre,
     getBandsByStatus,
+    getPreviewBands,
 };
