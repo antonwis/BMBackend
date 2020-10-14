@@ -4,7 +4,7 @@ import pool from '../db/index'
 
 // @desc    Get a preview list of Black Metal bands by country
 // *** THIS IS FOR DEMO PURPOSES ONLY ***
-// @route   GET /api/bands/country/:country/genre/:genre
+// @route   GET /api/bands/preview/:country
 const getPreviewBands = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const country = req.params.country;

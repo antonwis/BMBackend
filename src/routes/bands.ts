@@ -3,6 +3,7 @@ import controller from '../controllers/band';
 
 const router = express();
 
+// Band API routes
 router.get('/bands', controller.getBands);
 router.get('/bands/country/:country', controller.getBandsByCountry);
 router.get('/bands/country/:country/genre/:genre', controller.getBandsByCountryAndGenre);
