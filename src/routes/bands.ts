@@ -17,5 +17,6 @@ router.get('/bands/genre/:genre', controller.getBandsByGenre);
 router.get('/bands/status/:status', controller.getBandsByStatus);
 router.get('/bands/preview/:country', controller.getPreviewBands);
 
+
 export = router;
 
