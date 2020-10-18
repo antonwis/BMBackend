@@ -27,13 +27,13 @@ const getPreviewBands = async (req: Request, res: Response, next: NextFunction) 
     }
 }
 
-// @desc    Test query for testing (╯°□°）╯︵ ┻━┻)
+// @desc    Get all bands
 // @route   GET /api/bands
 const getBands = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await pool.connect()
         .then(client =>{
-            client.query("SELECT * FROM bands WHERE country = 'Germany' AND name LIKE 'Sentenc%'")
+            client.query("SELECT * FROM bands")
             .then(result =>{
                 client.release();
                 console.log("client released");
