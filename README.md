@@ -1,13 +1,13 @@
 # BMBackend
-Black Metal World Map backend
+#### Black Metal World Map backend
 
 API & database handling for the black metal world map app
 
-Band data was datamined from metal-archives.com and turned into a local database.
+Band data was scraped from metal-archives.com and turned into a local database.
 
 The database currently features over 140000 bands.
 
-## Used in conjunction with the BMFront vue app:
+## Used in conjunction with the BMFront Vue 3 app:
 
 https://github.com/Hexexe/BMFront
 
