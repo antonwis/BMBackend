@@ -1,7 +1,11 @@
 # BMBackend
 Black Metal World Map backend
 
-api & database handling for the black metal world map app
+API & database handling for the black metal world map app
+
+Band data was datamined from metal-archives.com and turned into a local database.
+
+The database currently features over 140000 bands.
 
 ## Used in conjunction with the BMFront vue app:
 
@@ -12,12 +16,12 @@ https://github.com/Hexexe/BMFront
 npm install
 ```
 
-### Run locally
+## Run locally
 ```
 npm run dev
 ```
 
-### API routes
+## API routes
 The band api is broken down into 2 sections: Database calls and web scraping
 
 Default URI for the api:
@@ -25,7 +29,7 @@ Default URI for the api:
 http://localhost:5000/api
 ```
 
-#### Database calls:
+### Database calls:
 
 Get all bands from database
 ```
@@ -87,7 +91,7 @@ Get all a preview list of black metal bands by country
 GET http://localhost:5000/api/bands/preview/:country
 ```
 
-#### Scraper calls
+### Scraper calls
 
 Get additional information about a band
 ```
@@ -120,7 +124,30 @@ First 2 results:
         "country": "Finland",
         "genre": "Depressive Black Metal",
         "status": "Active"
-    },
+    }
 ```
 
+Get a list of currently active bands, which have the word 'Winter' in their name
+```
+GET http://localhost:5000/api/bands/Winter/status/Active
+```
 
+First 2 results:
+```
+    {
+        "id": 626,
+        "link": "https://www.metal-archives.com/bands/A_Thousand_Winters/3540404293",
+        "name": "A Thousand Winters",
+        "country": "Italy",
+        "genre": "Folk Metal",
+        "status": "Active"
+    },
+    {
+        "id": 6029,
+        "link": "https://www.metal-archives.com/bands/Ancient_Winter/3540438319",
+        "name": "Ancient Winter",
+        "country": "Italy",
+        "genre": "Black Metal",
+        "status": "Active"
+    }
+```
