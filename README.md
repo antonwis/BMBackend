@@ -7,6 +7,8 @@ Band data was scraped from metal-archives.com and turned into a local database.
 
 The database currently features over 140000 bands.
 
+Band data was scraped from metal-archives.com in October 2020. The data itself can be found under src/assets/
+
 ## Used in conjunction with the BMFront Vue 3 app:
 
 https://github.com/Hexexe/BMFront
