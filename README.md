@@ -1,13 +1,11 @@
 # BMBackend
-#### Black Metal World Map backend
+### Black Metal World Map backend
 
 API & database handling for the black metal world map app
 
-Band data was scraped from metal-archives.com and turned into a local database.
+Band data was scraped from metal-archives.com in October 2020. The data itself can be found under src/assets/
 
 The database currently features over 140000 bands.
-
-Band data was scraped from metal-archives.com in October 2020. The data itself can be found under src/assets/
 
 ## Used in conjunction with the BMFront Vue 3 app:
 
@@ -31,7 +29,7 @@ Default URI for the api:
 http://localhost:5000/api
 ```
 
-### Database calls:
+## Database calls:
 
 Get all bands from database
 ```
@@ -102,7 +100,7 @@ POST http://localhost:5000/api/band/data
 The POST request has to include a link to a band profile in metal-archives.com, it then scrapes the site for additional
 data about the band and feeds it to the web application.
 
-#### Examples
+### Examples
 
 Get a list of finnish bands in 'Depressive' genre
 ```
